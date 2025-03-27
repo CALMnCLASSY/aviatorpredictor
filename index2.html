@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVIATOR PREDICTOR - AI-Powered Betting Predictions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .tagline {
+            color: var(--light-color);
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3rem 0;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 2rem;
+        }
+
+        .hero-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Benefits Section */
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 3rem 0;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-card i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        /* Video Section */
+        .video-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .video-section h2 {
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        video {
+            width: 100%;
+            max-width: 300px; /* Reduced max width */
+            border-radius: 8px;
+        }
+
+        /* Instructions Section */
+        .instructions {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .instructions h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .instructions ol {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            counter-reset: step-counter;
+            list-style: none;
+        }
+
+        .instructions li {
+            position: relative;
+            padding-left: 3rem;
+            counter-increment: step-counter;
+        }
+
+        .instructions li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: var(--accent-color);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Marketplace Section */
+        .marketplace {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(-3px);
+        }
+
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-details {
+            padding: 1.5rem;
+        }
+
+        .product-details h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .price {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .buy-button {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #2980b9;
+        }
+
+        .disclaimer {
+            color: var(--secondary-color);
+            font-weight: bold;
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 3rem 0;
+            background-color: #f8f9fa;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--light-color);
+            position: absolute;
+            top: 0;
+            left: 1rem;
+            line-height: 1;
+        }
+
+        .testimonial p {
+            position: relative;
+            z-index: 1;
+        }
+
+        .author {
+            font-weight: bold;
+            margin-top: 1rem;
+            color: var(--dark-color);
+        }
+
+        /* Payment Modal */
+        .payment-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .close-button:hover {
+            color: #333;
+        }
+
+        .payment-steps {
+            margin-top: 1.5rem;
+        }
+
+        .step {
+            display: flex;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background-color: var(--accent-color);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .payment-detail {
+            background: #f8f9fa;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin: 0.5rem 0;
+            font-family: monospace;
+        }
+
+        .telegram-button {
+            display: inline-block;
+            background-color: #0088cc;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .telegram-button:hover {
+            background-color: #006699;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--light-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+            
+            .benefits {
+                grid-template-columns: 1fr;
+            }
+
+            .instructions ol {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <style>
+        .footer-section p.guarantee {
+            font-size: 0.8rem; /* Smaller font size */
+            color: rgba(33, 64, 75, 0.7); /* Whitish color */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>AVIATOR PREDICTOR</h1>
+            <p class="tagline">AI-Powered Predictions with 99% Accuracy</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Maximize Your Winnings with AI Technology</h2>
+                <p>Get accurate signals and exact timing for placing your bets with guaranteed success rates. Our advanced algorithm analyzes patterns to give you the winning edge.</p>
+                <a href="#marketplace" class="cta-button">View Prediction Packages</a>
+            </div>
+            <div class="hero-image">
+                <img src="AvSiteImg/AVAIAIU.jpeg" alt="Aviator Predictor in Action">
+            </div>
+        </section>
+
+        <section class="benefits">
+            <div class="benefit-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Daily Profits</h3>
+                <p>Potential to earn up to 100% returns on your investment daily with our precise predictions.</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-robot"></i>
+                <h3>AI Technology</h3>
+                <p>Advanced machine learning algorithms provide 99% accurate drop point predictions.</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-clock"></i>
+                <h3>Regular Updates</h3>
+                <p>Fresh signals generated every 20 minutes for continuous winning opportunities.</p>
+            </div>
+        </section>
+
+        <section class="video-section">
+            <h2>Watch How It Works</h2>
+            <video controls>
+                <source src="WhatsApp Video 2025-01-12 at 10.41.50_29619a03.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+
+        <section class="instructions">
+            <h2>How To Get Started</h2>
+            <ol>
+                <li>Review the products below and choose the package that suits you</li>
+                <li>Click on the "Purchase Now" button and follow the payment instructions provided</li>
+                <li>After making the payment, send the confirmation message to our Telegram</li>
+                <li>You'll receive exclusive message with precise timing for when to cash out on your preferred betting site</li>
+                <li>Use the provided timing to place your bet confidently and enjoy guaranteed wins!</li>
+            </ol>
+        </section>
+
+        <section id="marketplace" class="marketplace">
+            <h2 class="section-title">PREDICTION PACKAGES</h2>
+            <p class="disclaimer">DISCLAIMER: Maximum of 3 purchases per day allowed. Gambling involves risk. Please bet responsibly as per the predictions given.</p>
+            
+            <div class="gallery">
+                <!-- 2x Package -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="AvSiteImg/2x.jpeg" alt="2x Prediction Package">
+                    </div>
+                    <div class="product-details">
+                        <h3>2x Prediction Package</h3>
+                        <p class="price">350 KES</p>
+                        <button class="buy-button" onclick="showPaymentInfo(350, '2x Prediction Package')">
+                            <i class="fas fa-shopping-cart"></i> Purchase Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3x Package -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="AvSiteImg/3x.jpeg" alt="3x Prediction Package">
+                    </div>
+                    <div class="product-details">
+                        <h3>3x Prediction Package</h3>
+                        <p class="price">525 KES</p>
+                        <button class="buy-button" onclick="showPaymentInfo(525, '3x Prediction Package')">
+                            <i class="fas fa-shopping-cart"></i> Purchase Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 5x Package -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="AvSiteImg/5x.jpeg" alt="5x Prediction Package">
+                    </div>
+                    <div class="product-details">
+                        <h3>5x Prediction Package</h3>
+                        <p class="price">700 KES</p>
+                        <button class="buy-button" onclick="showPaymentInfo(700, '5x Prediction Package')">
+                            <i class="fas fa-shopping-cart"></i> Purchase Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 7x Package -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="AvSiteImg/7x.jpeg" alt="7x Prediction Package">
+                    </div>
+                    <div class="product-details">
+                        <h3>7x Prediction Package</h3>
+                        <p class="price">1,050 KES</p>
+                        <button class="buy-button" onclick="showPaymentInfo(1050, '7x Prediction Package')">
+                            <i class="fas fa-shopping-cart"></i> Purchase Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 10x Package -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="AvSiteImg/10x.jpeg" alt="10x Prediction Package">
+                    </div>
+                    <div class="product-details">
+                        <h3>10x Prediction Package</h3>
+                        <p class="price">1,750 KES</p>
+                        <button class="buy-button" onclick="showPaymentInfo(1750, '10x Prediction Package')">
+                            <i class="fas fa-shopping-cart"></i> Purchase Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 15x Package -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="AvSiteImg/15x.jpeg" alt="15x Prediction Package">
+                    </div>
+                    <div class="product-details">
+                        <h3>15x Prediction Package</h3>
+                        <p class="price">2,800 KES</p>
+                        <button class="buy-button" onclick="showPaymentInfo(2800, '15x Prediction Package')">
+                            <i class="fas fa-shopping-cart"></i> Purchase Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 20x Package -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="AvSiteImg/20x.jpeg" alt="20x Prediction Package">
+                    </div>
+                    <div class="product-details">
+                        <h3>20x Prediction Package</h3>
+                        <p class="price">3,500 KES</p>
+                        <button class="buy-button" onclick="showPaymentInfo(3500, '20x Prediction Package')">
+                            <i class="fas fa-shopping-cart"></i> Purchase Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 30x Package -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="AvSiteImg/30x.jpeg" alt="30x Prediction Package">
+                    </div>
+                    <div class="product-details">
+                        <h3>30x Prediction Package</h3>
+                        <p class="price">5,250 KES</p>
+                        <button class="buy-button" onclick="showPaymentInfo(5250, '30x Prediction Package')">
+                            <i class="fas fa-shopping-cart"></i> Purchase Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 50x Package -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="AvSiteImg/50x.jpeg" alt="50x Prediction Package">
+                    </div>
+                    <div class="product-details">
+                        <h3>50x Prediction Package</h3>
+                        <p class="price">7,000 KES</p>
+                        <button class="buy-button" onclick="showPaymentInfo(7000, '50x Prediction Package')">
+                            <i class="fas fa-shopping-cart"></i> Purchase Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 100x Package -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="AvSiteImg/100x.jpeg" alt="100x Prediction Package">
+                    </div>
+                    <div class="product-details">
+                        <h3>100x Prediction Package</h3>
+                        <p class="price">10,500 KES</p>
+                        <button class="buy-button" onclick="showPaymentInfo(10500, '100x Prediction Package')">
+                            <i class="fas fa-shopping-cart"></i> Purchase Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonial">
+                <p>"I was skeptical at first, but after trying the 5x package, I made 85k in just two rounds! The predictions are incredibly accurate."</p>
+                <p class="author">- Mike W., Nairobi</p>
+            </div>
+            <div class="testimonial">
+                <p>"As a regular bettor, I've tried many prediction services. This is by far the most reliable. My winnings have increased by 300% since I started using it."</p>
+                <p class="author">- Sarah Wendo, Mombasa</p>
+            </div>
+            <div class="testimonial">
+                <p>"The 10x package changed my betting game. The detailed timing instructions make it so easy to know exactly when to cash out. Highly recommended!"</p>
+                <p class="author">- David Munyo, Kisumu</p>
+            </div>
+        </section>
+
+        <div id="payment-info" class="payment-modal hidden">
+            <div class="modal-content">
+                <span class="close-button" onclick="closePaymentInfo()">&times;</span>
+                <h3>Complete Your Purchase</h3>
+                <div class="payment-steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <p>Send <strong id="payment-amount">350 KES</strong> to:</p>
+                        <p class="payment-detail">PayBill: <strong>522522</strong></p>
+                        <p class="payment-detail">Account No: <strong>1331124875</strong></p>
+                        <p>For: <strong id="package-name">2x Prediction Package</strong></p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <p>Send payment confirmation via Telegram:</p>
+                        <a href="https://t.me/Aadmin4cnc" class="telegram-button">
+                            <i class="fab fa-telegram"></i> Send Confirmation
+                        </a>
+                        <p>Include your M-Pesa transaction code</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <p>Receive your prediction details instantly after verification (usually within 2-5 minutes)</p>
+                    </div>
+                </div>
+                <p class="disclaimer" style="margin-top: 1rem;">Note: Predictions are sent via Telegram. Ensure you have an active Telegram account.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#marketplace">Prediction Packages</a></li>
+                        <li><a href="#" onclick="showPaymentInfo(0, 'General Inquiry')">How to Pay</a></li>
+                        <li><a href="https://t.me/Aadmin4cnc">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p><i class="fab fa-telegram"></i> <a href="https://t.me/Aadmin4cnc">Telegram Support</a></p>
+                    <p><i class="fas fa-envelope"></i> support@aviatorpredictor.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <p>Gambling involves risk. Please play responsibly.</p>
+                    <p>Must be 18+ to use our services.</p>
+                    <p class="guarantee">Predictions are not guaranteed wins.</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2022 CnCAviatorPredictor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showPaymentInfo(amount, packageName) {
+            if (amount > 0) {
+                document.getElementById('payment-amount').textContent = amount.toLocaleString() + ' KES';
+                document.getElementById('package-name').textContent = packageName;
+            }
+            document.getElementById('payment-info').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closePaymentInfo() {
+            document.getElementById('payment-info').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        window.onclick = function(event) {
+            const modal = document.getElementById('payment-info');
+            if (event.target === modal) {
+                closePaymentInfo();
+            }
+        }
+    </script>
+</body>
+</html>
